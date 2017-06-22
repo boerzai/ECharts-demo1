@@ -1,0 +1,1061 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>云网运行数据监控</title>
+
+    <meta name="description" content="云网运行数据监控">
+    <meta name="author" content="云路">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript">
+        document.write('<script src="js/common.js?v' + new Date().valueOf() + '"></scr' + 'ipt>');
+        document.write('<link href="css/common.css?v' + new Date().valueOf() + '" rel="stylesheet" />');
+    </script>
+    <style>
+        body{
+            /*background: url("./image/body_bg.jpg") no-repeat 0 0;*/
+            /*width:2880px!important;*/
+            /*height:960px!important;*/
+        }
+        .newstart1_left{
+            background: url("./image/body_bg.jpg") no-repeat 0 0;
+            width:1142px;
+            height:842px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .newstart1_middle{
+            width:790px;
+            height:842px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .newstart1_middle .top{
+            position: absolute;
+            top:0;
+            left:0;
+            width:790px;
+            height: 618px;
+        }
+        .newstart1_middle .bottom{
+            position: absolute;
+            bottom:0;
+            left:0;
+            width:790px;
+            height: 204px;
+        }
+        .newstart1_right{
+
+            width:790px;
+            height:842px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .newstart1_right .top{
+            position: absolute;
+            top:0;
+            left:0;
+            width:790px;
+            height: 618px;
+        }
+        .newstart1_right .bottom{
+            position: absolute;
+            bottom:0;
+            left:0;
+            width:790px;
+            height: 204px;
+        }
+        .newstart1_right .bottom .left{
+            position: absolute;
+            left:0;
+            bottom: 0;
+            width:250px;
+            height:204px;
+            border:0;
+        }
+        .newstart1_right .bottom .middle{
+            position: absolute;
+            left:0;
+            right:0;
+            margin:auto;
+            bottom: 0;
+            width:250px;
+            height:204px;
+        }
+        .newstart1_right .bottom .right{
+            position: absolute;
+            right:0;
+            bottom: 0;
+            width:250px;
+            height:204px;
+        }
+        #container1,#container2,#container3,#container4,#container5,#container6,#container7{
+            width:100%;
+            height:100%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        #title{
+            width:100%;
+            text-align: center;
+            font-size: 24px;
+            color:#49d9fe;
+            position: absolute;
+            top:18px;
+            left:0;
+            z-index: 10000;
+            height:50px;
+            font-weight: bold;
+        }
+        .container2_title{
+            width:100%;
+            text-align: center;
+            font-size: 24px;
+            color:#49d9fe;
+            position: absolute;
+            top:18px;
+            left:0;
+            z-index: 10000;
+            height:50px;
+            font-weight: bold;
+        }
+    </style>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="js/echarts-all-3.js"></script>
+    <script type="text/javascript" src="js/dataTool.min.js"></script>
+    <script type="text/javascript" src="js/china.js"></script>
+    <script type="text/javascript" src="js/world.js"></script>
+    <script type="text/javascript" src="js/bmap.js"></script>
+    <script type="text/javascript" src="js/geo.js"></script>
+    <script type="text/javascript" src="js/source1.js"></script>
+    <script type="text/javascript" src="js/source2.js"></script>
+    <script type="text/javascript" src="js/stat3.js?aaa"></script>
+</head>
+<body>
+<div class="newstart1_left light">
+    <div id="container1"></div>
+    <script>
+        var option1 = {
+            baseOption: {
+                animationDurationUpdate: 1000,
+                animationEasingUpdate: 'quinticInOut',
+                timeline: {
+                    axisType: 'category',
+                    orient: 'vertical',
+                    autoPlay: true,
+                    inverse: true,
+                    playInterval: 5000,
+                    left: null,
+                    right: 10,
+                    top: 60,
+                    bottom: '0%',
+                    width: 46,
+                    height: null,
+                    label: {
+                        position:-10,
+                        normal: {
+                            textStyle: {
+                                color: '#eee',
+                                fontSize: 16
+                            }
+                        },
+                        emphasis: {
+                            textStyle: {
+                                color: '#eee'
+                            }
+                        }
+                    },
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#eee'
+                    },
+                    checkpointStyle: {
+                        color: '#eee',
+                        borderColor: 'transparent',
+                        borderWidth: 1
+                    },
+                    controlStyle: {
+                        showNextBtn: false,
+                        showPrevBtn: false,
+                        normal: {
+                            color: '#666',
+                            borderColor: '#666'
+                        },
+                        emphasis: {
+                            color: '#aaa',
+                            borderColor: '#aaa'
+                        }
+                    },
+                    data: data.map(function(ele) {
+                        return ele.time
+                    })
+                },
+                /*backgroundColor: '#404a59',*/
+                background: "linear-gradient(to bottom, #031228, #073046)",
+
+                title: {
+                    text: '云网全球用户动态分布图',
+                    top:20,
+                    left: 'center',
+                    textStyle: {
+                        color: '#49d9fe',
+                        fontSize:24
+                    }
+                },
+                tooltip: {
+                    formatter: function(params) {
+                        if ('value' in params.data) {
+                            return params.data.value[2] + ': ' + params.data.value[0];
+                        }
+                    }
+                },
+                grid: {
+                    left: '10%',
+                    right: '10%',
+                    top: '65%',
+                    bottom: '2%'
+                },
+                xAxis: {
+                    splitLine: {
+                        lineStyle: {
+                            color: '#666'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#666'
+                        }
+                    }
+                },
+                yAxis: {},
+                series: [{
+                    id: 'map',
+                    type: 'map',
+                    mapType: 'world',
+                    top: '10%',
+                    bottom: '40%',
+                    right:'10%',
+                    left:'5%',
+//                    zoom: 1,//世界地图大小
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#023c5e',
+                            borderColor: '#404a59'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            },
+                            areaColor: 'rgba(255,255,255, 0.5)'
+                        }
+                    },
+                    data: []
+                }, {
+                    id: 'bar',
+                    type: 'bar',
+                    barWidth: '60%',
+                    tooltip: {
+                        show: false
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'right',
+                            textStyle: {
+                                color: 'rgba(255,255,255, 0)'
+                            }
+                        }
+                    },
+                    data: []
+                }]
+            },
+            options: []
+        }
+
+        for (var i = 0; i < data.length; i++) {
+            //计算其余国家GDP
+            var restPercent = 100;
+            var restValue = 0;
+            var total = 0;
+            data[i].data.forEach(function(ele) {
+                total += ele.value[0];
+            });
+            data[i].data.forEach(function(ele) {
+                ele.value[1] = ele.value[0] * 1.0 / total;
+            });
+
+            /*data[i].data.forEach(function(ele) {
+             restPercent = restPercent - ele.value[1];
+             });
+             restValue = data[i].data[0].value[0] * (restPercent / data[i].data[0].value[1]);*/
+
+//		    console.log(restPercent);
+//		    console.log(restValue);
+            option1.options.push({
+                visualMap: [{
+                    show:false,
+                    dimension: 0,
+                    left: 'left',
+                    bottom: '40%',
+                    itemWidth: 12,
+                    min: data[i].data[data[i].data.length - 1].value[0],
+                    max: data[i].data[0].value[0],
+                    text: ['High', 'Low'],
+                    textStyle: {
+                        color: '#ddd'
+                    },
+                    inRange: {
+                        color: ['#6dafe0','#b0ce57', '#efbf5d','#fc8879']
+                    }
+                }],
+                xAxis: {
+                    type: 'value',
+                    boundaryGap: [0, 0.1],
+                    axisLabel: {
+                        show: false,
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#ddd'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#999'
+                        }
+                    },
+                    data: data[i].data.map(function(ele) {
+                        return ele.value[2]
+                    }).splice(0, 10)
+                },
+                series: [{
+                    id: 'map',
+                    data: data[i].data
+                }, {
+                    id: 'bar',
+                    data: data[i].data.map(function(ele) {
+                        return ele.value[0]
+                    }).splice(0, 10)
+                }]
+            })
+        }
+
+        $(function(){
+            showChart("container1", option1);
+        });
+    </script>
+</div>
+<div style="width: 1140px; height: 842px; margin: 0 auto; background: url(./image/body_bg.jpg) no-repeat 0 0;">
+    <div class="newstart1_middle">
+        <div class="top">
+            <div id="container2"></div>
+            <div class="container2_title">云网门户用户实时动态分布图</div>
+            <script>
+                var option = {
+                    //backgroundColor: '#404a59',
+                    title: {
+                        left: 'center',
+                        top: '60',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize: 40
+                        },
+                        subtextStyle: {
+                            fontSize: 25
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    left: 100,
+                    legend: {
+                        orient: 'vertical',
+                        y: 'bottom',
+                        x: 'right',
+                        data: ['pv'],
+                        textStyle: {
+                            color: '#fff'
+                        },
+                        show: false
+                    },
+                    geo: {
+                        map: 'china',
+                        top: '10%',
+                        left: '8%',
+                        bottom: '5%',
+                        zoom: 1, //中国地图大小
+                        label: {
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        roam: true,
+                        itemStyle: {
+                            normal: {
+                                areaColor: '#5884a7',//'#386497'
+                                borderColor: '#254468'
+                            },
+                            emphasis: {
+                                areaColor: '#2a333d'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'pv',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: [],
+                        symbolSize: function(val) {
+                            return val[2] / 2600 + 10;
+                        },
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'right',
+                                show: true,
+                                textStyle: {
+                                    fontSize : 14
+                                }
+                            },
+                            emphasis: {
+                                show: true
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#ffb926'
+                            }
+                        }
+                    }, {
+                        name: 'active',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        data: convertData(getData(regionData)),
+                        symbolSize: function(val) {
+                            return randomData(20, 30);
+                        },
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'right',
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#f4e925',
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                            }
+                        },
+                        zlevel: 1
+                    }]
+                };
+                $(function(){
+                    option.series[0].data = convertData(regionData);
+                    option.autoHeight = true;
+                    showChart("container2", option);
+
+                    var ttt = window.setInterval(function() {
+                        option.series[1].data = convertData(getData(regionData));
+                        /*地图上右侧数字*/
+                        /*option.series[1].label = {
+                         normal: {
+                         formatter: function(params) { return params.data[params.dataIndex];},
+                         position: 'right',
+                         show: true,
+                         textStyle: {
+                         color: 'yellow',
+                         fontSize: 20
+                         }
+                         }
+                         };*/
+//              tooltip: {formatter:"aaa{c}"}
+                        echarts.getInstanceByDom($('#container2')[0]).setOption(option);
+                    }, 1000);
+                });
+            </script>
+        </div>
+        <div class="bottom light">
+            <div id="container3"></div>
+            <script>
+                // line option
+                var option3 = {
+                    title: {
+                        text: '活跃度详细指标',
+                        left: '5%',
+                        top:'2%',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:16
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            animation: false
+                        }
+                    },
+//                legend: {
+//                    data: [{name: 'PV', textStyle: {color: '#0ac6be'}}, {name: 'UV', textStyle: {color: '#f4e925'}}],
+//                    textStyle: {
+//                        color: '#fff'
+//                    },
+//                    orient: 'vertical',
+//                    top: 'center',
+//                    left: 'right',
+//                    show: true
+//                },
+                    grid: {
+                        left: '5%',
+                        bottom: '5%'
+                    },
+                    xAxis: {
+                        type: 'time',
+                        splitLine: {
+                            show: false
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                color: '#fff'
+                            },
+                            show: false//详细指标x轴是否显示
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#bbb'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        splitLine: {
+                            show: false
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                color: '#fff'
+                            },
+                            formatter: function(value, index){
+                                return parseInt(value/1000);
+                            },
+                            show: false//详细指标y轴是否显示
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'PV',
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        hoverAnimation: false,
+                        data: [],
+                        lineStyle: {
+                            normal: {
+                                color: '#0ac6be'
+                            }
+                        }
+                    }, {
+                        name: 'UV',
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        hoverAnimation: false,
+                        data: [],
+                        lineStyle: {
+                            normal: {
+                                color: '#f4e925'
+                            }
+                        }
+                    }]
+                };
+                var formatUV = function(data, prop) {
+                    var res = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var t = new Date(data[i].date);
+                        var value = data[i][prop];
+                        if(data[i].date > 1489075200000) {
+                            value += 100 + i*19;
+                        }
+
+                        res.push({
+                            name: t.toString(),
+                            value: [t.toString(), value]
+                        });
+                    }
+                    return res;
+                };
+
+                var formatPV = function(data, prop) {
+                    var res = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var t = new Date(data[i].date);
+                        var value = data[i][prop];
+
+                        if(data[i].date > 1489075200000) {
+                            if(value < 8000) {
+                                value += 7000 + i*54;
+                            }
+                            else {
+                                value += 6000 + i*60;
+                            }
+                        }
+
+                        res.push({
+                            name: t.toString(),
+                            value: [t.toString(), value]
+                        });
+                    }
+                    return res;
+                };
+
+                $(function(){
+                    option3.series[0].data = formatPV(pvData, "pv");
+                    option3.series[1].data = formatUV(pvData, "uv");
+                    showChart("container3", option3);
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<div style="width: 1140px; height: 842px; margin: 0 auto; background: url(./image/body_bg.jpg) no-repeat 0 0;">
+    <div class="newstart1_right">
+    <div class="top">
+        <div id="container4"></div>
+        <div id="title"></div>
+        <script>
+            //            showLeftContainer(0.9, 0.9, 0.9);
+            //            showTitle();
+
+            var topTitle = '60';
+            option4 = {
+                //backgroundColor: '#404a59',
+                title: {
+                    //text: '外协外购配套链',
+                    //subtext: 'www.casicloud.com',
+                    subtextStyle: {
+                        fontSize: 25
+                    },
+                    left: 'center',
+                    top: topTitle,
+                    textStyle: {
+                        color: '#fff',
+                        fontSize: 40
+                    }
+                },
+                legend: {
+                    show: false,
+                    orient: 'vertical',
+                    top: 'bottom',
+                    left: 'right',
+                    data: ['地点', '线路'],
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                geo: {
+                    map: 'china',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    top: '10%',
+                    left: '8%',
+                    bottom:'5%',
+                    zoom: 1, //中国地图大小
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#5884a7',
+                            borderColor: '#254468'
+                        },
+                        emphasis: {
+                            areaColor: '#3864ff'
+                        }
+                    }
+                },
+                series: [{
+                    name: '地点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    zlevel: 2,
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    label: {
+                        emphasis: {
+                            show: true,
+                            position: 'right',
+                            formatter: '{b}'
+                        }
+                    },
+                    symbolSize: 2,
+                    showEffectOn: 'render',
+                    itemStyle: {
+                        normal: {
+                            color: '#46bee9'
+                        }
+                    },
+                    data: []
+                }, {
+                    name: '线路',
+                    type: 'lines',
+                    coordinateSystem: 'geo',
+                    zlevel: 2,
+                    large: true,
+                    effect: {
+                        show: true,
+                        constantSpeed: 30,
+                        symbol: "arrow",
+                        symbolSize: 5,
+                        trailLength: 0,
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#fb8158'
+                            }, {
+                                offset: 1,
+                                color: '#fb8158'
+                            }], false),
+                            width: 1,
+                            opacity: 0.4,
+                            curveness: 0.1
+                        }
+                    },
+                    data: []
+                }]
+            };
+            overlayOption = {
+                title: {
+                    text: '月份销售/采购额（亿元）',
+                    left: 'center',
+                    top: '2%',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize:16
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                legend: {
+                    data: [waixieBuy.name, waixieSell.name],
+                    textStyle: {
+                        color: '#fff',
+                        fontSize:12
+                    },
+//                    orient: 'vertical',
+                    top: '15%',
+                    left: 'center',
+                    show: true
+                },
+                grid: {
+                    left: '2%',
+                    right: '2%',
+                    bottom: '10%',
+                    containLabel: true
+                },
+                xAxis: [{
+                    type: 'category',
+                    data: ['2016年4月', '2016年5月', '2016年6月', '2016年7月', '2016年8月', '2016年9月', '2016年10月', '2016年11月', '2016年12月', '2017年1月', '2017年2月', '2017年3月', '2017年4月', '2017年5月'],
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                }],
+                yAxis: [{
+                    type: 'value',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#333'
+                        }
+                    }
+                }],
+                series: [{
+                    name: waixieBuy.name,
+                    type: 'bar',
+                    data: waixieBuy.data,
+                    itemStyle: {
+                        normal: {
+                            color: '#69f0fc'
+                        }
+                    }
+                },
+                    {
+                        name: waixieSell.name,
+                        type: 'bar',
+                        data: waixieSell.data,
+                        itemStyle: {
+                            normal: {
+                                color: '#fb8158'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            var curIdx = 0;
+            waixie.title = "云网外协配套分布图";
+            waigou.title = "云网外购配套分布图";
+            var alldata = [waixie, waigou];
+
+            var barData = [
+                [waixieBuy, waixieSell],
+                [waigouBuy, waigouSell]
+            ]
+            $(function() {
+                option4.autoHeight = true;
+
+                //option.title.text = alldata[curIdx].title;
+                $('#title').text(alldata[curIdx].title);
+                option4.series[0].data = alldata[curIdx].citys;
+                option4.series[1].data = alldata[curIdx].moveLines;
+
+                overlayOption.series[0].name = barData[curIdx][0].name;
+                overlayOption.series[0].data = barData[curIdx][0].data;
+                overlayOption.series[1].name = barData[curIdx][1].name;
+                overlayOption.series[1].data = barData[curIdx][1].data;
+                overlayOption.legend.data = [barData[curIdx][0].name, barData[curIdx][1].name];
+
+                showChart("container4", option4);
+                showChart("container7", overlayOption);
+                leftDraw();
+                var ttt = window.setInterval(function() {
+                    if (curIdx == 0) {
+                        curIdx = 1
+                    } else {
+                        curIdx = 0
+                    }
+                    //option.title.text = alldata[curIdx].title;
+                    $('#title').text(alldata[curIdx].title);
+                    option4.series[0].data = alldata[curIdx].citys;
+                    option4.series[1].data = alldata[curIdx].moveLines;
+
+                    overlayOption.series[0].name = barData[curIdx][0].name;
+                    overlayOption.series[0].data = barData[curIdx][0].data;
+                    overlayOption.series[1].name = barData[curIdx][1].name;
+                    overlayOption.series[1].data = barData[curIdx][1].data;
+                    overlayOption.legend.data = [barData[curIdx][0].name, barData[curIdx][1].name];
+
+                    echarts.getInstanceByDom($('#container4')[0]).setOption(option4);
+                    echarts.getInstanceByDom($('#container7')[0]).setOption(overlayOption);
+                    leftDraw();
+                }, 10000);
+            });
+
+            var leftData1 = [{
+                title: "甲方外协（亿元）",
+                data: jiaWaiXie
+            }, {
+                title: "甲方外购（亿元）",
+                data: jiaWaiGou
+            }];
+            var leftData2 = [{
+                title: "乙方外协（亿元）",
+                data: yiWaiXie
+            }, {
+                title: "乙方外购（亿元）",
+                data: yiWaiGou
+            }];
+
+            function leftDraw() {
+                var unit = 100000000; //亿元
+                leftBarOption1.series[0].data = (function() {
+                    var res = [];
+                    for (var i = 0; i < 10; i++) {
+                        var vl = leftData1[curIdx].data[i].value;
+                        res.push(vl / unit);
+                    }
+
+                    res.reverse();
+                    return res;
+                })();
+                leftBarOption1.title.text = leftData1[curIdx].title;
+                leftBarOption1.yAxis.data = (function() {
+                    var res = [];
+                    for (var i = 0; i < 10; i++) {
+                        res.push(leftData1[curIdx].data[i].name);
+                    }
+
+                    res.reverse();
+                    return res;
+                })();
+                showChart("container5", leftBarOption1);
+
+
+                leftBarOption2.series[0].data = (function() {
+                    var res = [];
+                    for (var i = 0; i < 10; i++) {
+                        var vl = leftData2[curIdx].data[i].value;
+                        res.push(vl / unit);
+                    }
+                    res.reverse();
+                    return res;
+                })();
+                leftBarOption2.title.text = leftData2[curIdx].title;
+                leftBarOption2.yAxis.data = (function() {
+                    var res = [];
+                    for (var i = 0; i < 10; i++) {
+                        res.push(leftData2[curIdx].data[i].name);
+                    }
+                    res.reverse();
+                    return res;
+                })();
+                showChart("container6", leftBarOption2);
+            };
+
+            var leftBarOption1 = {
+                title: {
+                    text: '',
+                    top: '2%',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize:16
+                    }
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    top: '20%',
+                    bottom: '5%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                series: [{
+                    name: '',
+                    type: 'bar',
+                    barWidth: '75%',
+                    data: [92, 47, 159, 13, 6],
+                    itemStyle: {
+                        normal: {
+                            color: '#69f0fc'
+                        }
+                    }
+                }]
+            };
+
+            var leftBarOption2 = {
+                title: {
+                    text: '',
+                    top: '2%',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize:16
+                    }
+                },
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    top: '20%',
+                    bottom: '5%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                series: [{
+                    name: '',
+                    type: 'bar',
+                    barWidth: '75%',
+                    data: [],
+                    itemStyle: {
+                        normal: {
+                            color: '#fb8158'
+                        }
+                    }
+                }]
+            };
+        </script>
+    </div>
+    <div class="bottom">
+        <div class="left light">
+            <div id="container5"></div>
+        </div>
+        <div class="middle light">
+            <div id="container6"></div>
+        </div>
+        <div class="right light">
+            <div id="container7"></div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+</html>
